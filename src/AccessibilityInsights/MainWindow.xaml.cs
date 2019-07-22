@@ -866,7 +866,7 @@ namespace AccessibilityInsights
                 var dlg = new System.Windows.Forms.OpenFileDialog
                 {
                     Title = Properties.Resources.btnLoad_ClickDialogTitle,
-                    Filter = FileFilters.A11yFileFilter,
+                    Filter = FileFilters.ScreenshotFileFilter,
                     InitialDirectory = ConfigurationManager.GetDefaultInstance().AppConfig.TestReportPath,
                     AutoUpgradeEnabled = !SystemParameters.HighContrast,
                 };

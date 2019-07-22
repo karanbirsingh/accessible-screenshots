@@ -346,6 +346,14 @@ namespace AccessibilityInsights
             UpdateMainWindowUI();
         }
 
+        internal void HandleLoadingScreenshotData(string path, int? selectedElementId = null)
+        {
+            HandlePauseButtonToggle(true);
+
+            StartLoadingScreenshot(path);
+            UpdateMainWindowUI();
+        }
+
         /// <summary>
         /// Handle Load snapshot data and Request Ux Change
         /// </summary>
@@ -368,7 +376,7 @@ namespace AccessibilityInsights
         private bool TryOpenFile(string fileName, int? selectedElementId = null)
         {
             // array of file handlers to be attempted in order. If one throws an exception, the next will be tried
-            FileLoadHandler[] fileHandlers = { HandleLoadingSnapshotData, HandleLoadingEventData };
+            FileLoadHandler[] fileHandlers = { HandleLoadingScreenshotData, HandleLoadingSnapshotData, HandleLoadingEventData };
 
             foreach(var fileHandler in fileHandlers)
             {

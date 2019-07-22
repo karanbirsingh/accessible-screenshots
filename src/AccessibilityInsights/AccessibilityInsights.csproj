@@ -83,6 +83,9 @@
     <Reference Include="CommandLine, Version=2.5.0.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
       <HintPath>..\packages\CommandLineParser.2.5.0\lib\net461\CommandLine.dll</HintPath>
     </Reference>
+    <Reference Include="MetadataExtractor.StrongName, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b66b5ccaf776c301, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetadataExtractor.StrongName.2.1.0\lib\net45\MetadataExtractor.StrongName.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -110,14 +113,20 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="XmpCore.StrongName, Version=5.1.3.0, Culture=neutral, PublicKeyToken=961f4f366277b80e, processorArchitecture=MSIL">
+      <HintPath>..\packages\XmpCore.StrongName.5.1.3\lib\net35\XmpCore.StrongName.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Compile Include="Enums\CCAView.cs" />
+    <Compile Include="Misc\AccessibleXmp.cs" />
     <Compile Include="Misc\CommandLineSettings.cs" />
     <Compile Include="Misc\CommandOptions.cs" />
+    <Compile Include="Misc\AccessibleScreenshot.cs" />
+    <Compile Include="Misc\ElementNode.cs" />
     <Compile Include="Misc\TelemetryEventFactory.cs" />
     <Compile Include="Modes\DialogContainerModeControl.xaml.cs">
       <DependentUpon>DialogContainerModeControl.xaml</DependentUpon>
