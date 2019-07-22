@@ -187,6 +187,27 @@ namespace AccessibilityInsights
             UpdateMainCommandButtons();
         }
 
+        private void StartLoadingScreenshot(string path)
+        {
+            if (!path.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException("path is not png");
+            }
+
+            var metadata = AccessibleScreenshot.LoadMetadata(path);
+
+            DisableElementSelector();
+
+            this.ctrlCurMode.HideControl();
+            this.ctrlCurMode = this.ctrlSnapMode;
+            /*
+            this.ctrlSnapMode.DataContextMode = GetDataContextModeForTest();
+            this.CurrentPage = AppPage.Test;
+            this.CurrentView = TestView.ElementDetails;
+            this.ctrlCurMode.ShowControl();
+            */
+        }
+
         /// <summary>
         /// Start snapshot mode with loading data
         /// </summary>

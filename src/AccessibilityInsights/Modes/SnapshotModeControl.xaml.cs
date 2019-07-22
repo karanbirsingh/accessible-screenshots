@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using AccessibilityInsights.CommonUxComponents.Dialogs;
 using AccessibilityInsights.Enums;
+using AccessibilityInsights.Misc;
 using AccessibilityInsights.SharedUx.Controls.CustomControls;
 using AccessibilityInsights.SharedUx.Enums;
 using AccessibilityInsights.SharedUx.Highlighting;
@@ -473,20 +474,19 @@ namespace AccessibilityInsights.Modes
         {
             var dlg = new System.Windows.Forms.SaveFileDialog
             {
-                Filter = FileFilters.TestFileFilter,
+                Filter = FileFilters.ScreenshotFileFilter,
                 InitialDirectory = Configuration.TestReportPath,
                 AutoUpgradeEnabled = !SystemParameters.HighContrast,
             };
 
-            dlg.FileName = dlg.InitialDirectory.GetSuggestedFileName(FileType.TestResults);
-
-            Logger.PublishTelemetryEvent(TelemetryAction.Hierarchy_Save);
+            dlg.FileName = "test.png";
 
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 try
                 {
-                    SaveAction.SaveSnapshotZip(dlg.FileName, this.ElementContext.Id, this.ctrlHierarchy.GetSelectedElement().UniqueId, A11yFileMode.Inspect);
+                    AccessibleScreenshot.SaveScreenshot(dlg.FileName, this.ElementContext.Id);
+                    //SaveAction.SaveSnapshotZip(dlg.FileName, this.ElementContext.Id, this.ctrlHierarchy.GetSelectedElement().UniqueId, A11yFileMode.Inspect);
                 }
 #pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)

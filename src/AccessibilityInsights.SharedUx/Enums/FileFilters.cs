@@ -12,6 +12,7 @@ namespace AccessibilityInsights.SharedUx.Enums
         public const string EventsFileFilter = "AccessibiltyInsights Events files (*.a11yevent)|*.a11yevent|All files (*.*)|*.*";
         public const string TestExtension = ".a11ytest";
         public const string EventsExtension = ".a11yevent";
+        public const string ScreenshotFileFilter = "Image files (*.png)|*.png|All files (*.*)|*.*";
     }
 
     /// <summary>
