@@ -200,29 +200,12 @@ namespace AccessibilityInsights.Modes
                                 }
                             }
                             this.tabControl.IsEnabled = true;
-                            this.ctrlAutomatedChecks.SetElement(ec);
-
                             this.ElementContext = ec;
-
-                            if (ec.DataContext.Mode == DataContextMode.Test)
-                            {
-                                tbiTabStop.Visibility = Visibility.Visible;
-                                this.ctrlTabStop.SetElement(ec);
-                            }
-                            else
-                            {
-                                tbiTabStop.Visibility = Visibility.Collapsed;
-                            }
-
-                            var count = ec.DataContext?.GetRuleResultsViewModelList()?.Count ?? 0;
-                            AutomationProperties.SetName(this, Invariant($"{Properties.Resources.detectedFailuresMessagePart1} {this.ElementContext.Element.Glimpse}. {count} {Properties.Resources.detectedFailuresMessagePart2}"));
-
                             if (!string.IsNullOrEmpty(warning))
                             {
                                 MessageDialog.Show(warning);
                             }
-                            ///Set focus on automated checks tab.
-                            FireAsyncContentLoadedEvent(AsyncContentLoadedState.Completed);
+                            Save();
                         }
                     });
                 }
