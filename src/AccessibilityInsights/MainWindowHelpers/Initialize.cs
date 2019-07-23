@@ -55,7 +55,6 @@ namespace AccessibilityInsights
             /// Set UI appropriately if showing startup screen
             if (ConfigurationManager.GetDefaultInstance().AppConfig.NeedToShowWelcomeScreen())
             {
-                this.bdLeftNav.IsEnabled = false;
                 this.gdModes.Visibility = Visibility.Collapsed;
                 this.ctrlStartUpMode.ShowControl();
                 //show telemetry dialog
@@ -210,39 +209,6 @@ namespace AccessibilityInsights
         /// </summary>
         private void SetHotKeyForToggleRecord()
         {
-            SetHotKey(ConfigurationManager.GetDefaultInstance().AppConfig.HotKeyForRecord,
-                      new Action(() =>
-                      {
-                          lock (this)
-                          {
-                              Dispatcher.Invoke(() =>
-                              {
-                                  lock (this)
-                                  {
-                                      if (this.CurrentPage == AppPage.Test && (TestView)this.CurrentView == TestView.TabStop)
-                                      {
-                                          ctrlTestMode.ctrlTabStop.ToggleRecording();
-                                      }
-                                      else if (this.CurrentPage == AppPage.Events && this.CurrentView != EventsView.Load)
-                                      {
-                                          ctrlEventMode.ctrlEvents.ToggleRecording();
-                                      }
-                                      else
-                                      {
-                                          var sa = SelectAction.GetDefaultInstance();
-
-                                          // make sure that POI is set. 
-                                          if (this.IsInSelectingState() && sa.HasPOIElement())
-                                          {
-                                              this.StartEventsMode(GetDataAction.GetElementContext(sa.GetSelectedElementContextId().Value).Element);
-                                              UpdateMainWindowUI();
-                                          }
-                                      }
-                                  }
-                              });
-                          }
-                      }),
-                    ErrorMessage(ConfigurationManager.GetDefaultInstance().AppConfig.HotKeyForSnap));
         }
 
         /// <summary>

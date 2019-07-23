@@ -83,15 +83,7 @@ namespace AccessibilityInsights
         /// </summary>
         void HandleRequestRecordingByHotkey()
         {
-            if (this.CurrentPage == AppPage.Test && (TestView)this.CurrentView == TestView.TabStop)
-            {
-                ctrlTestMode.ctrlTabStop.ToggleRecording();
-            }
-            else if (this.CurrentPage == AppPage.Events)
-            {
-                ctrlEventMode.ctrlEvents.ToggleRecording();
-            }
-            else if (this.IsInSelectingState())
+            if (this.IsInSelectingState())
             {
                 var sa = SelectAction.GetDefaultInstance();
 
@@ -127,7 +119,6 @@ namespace AccessibilityInsights
             // if coming from startup, restore left nav bar
             if (this.CurrentPage == AppPage.Start)
             {
-                this.bdLeftNav.IsEnabled = true;
                 this.gdModes.Visibility = Visibility.Visible;
                 this.btnPause.Visibility = Visibility.Visible;
             }
@@ -184,10 +175,7 @@ namespace AccessibilityInsights
         /// </summary>
         private void CleanUpAllModeUIs()
         {
-            this.ctrlEventMode.ctrlEvents.StopRecordEvents();
-            this.ctrlEventMode.Clear();
             this.ctrlLiveMode.Clear();
-            this.ctrlTestMode.Clear();
             this.ctrlSnapMode.Clear();
         }
 
@@ -297,33 +285,6 @@ namespace AccessibilityInsights
 
         private void HandleCCATabClick()
         {
-
-            if (SelectAction.GetDefaultInstance().IsPaused)
-            {
-                HandlePauseButtonToggle(true);
-            }
-
-            this.CurrentPage = AppPage.CCA;
-            if (ctrlCCAMode.isToggleChecked())
-            {
-                this.CurrentView = CCAView.Automatic;
-            }
-            else
-            {
-                this.CurrentView = CCAView.Manual;
-            }
-
-            HideConfigurationMode();
-            ctrlCurMode.HideControl();
-            ctrlCurMode = ctrlCCAMode;
-            ctrlCurMode.ShowControl();
-
-            StartCCAMode((CCAView)this.CurrentView);
-
-            // if it was open when the switch back button is clicked. 
-            HideConfigurationMode();
-
-            UpdateMainWindowUI();
         }
 
         /// <summary>
@@ -507,7 +468,6 @@ namespace AccessibilityInsights
         {
             if (path != null)
             {
-                this.bdLeftNav.IsEnabled = true;
                 this.gdModes.Visibility = Visibility.Visible;
 
                 return TryOpenFile(path, selectedElementId);
@@ -531,7 +491,6 @@ namespace AccessibilityInsights
 
             SelectAction.GetDefaultInstance().IntervalMouseSelector = configManager.AppConfig.MouseSelectionDelayMilliSeconds;
             this.Topmost = configManager.AppConfig.AlwaysOnTop;
-            this.ctrlTestMode.ctrlTabStop.SetHotkeyText(configManager.AppConfig.HotKeyForRecord);
 
             HollowHighlightDriver.GetDefaultInstance().HighlighterMode = configManager.AppConfig.HighlighterMode;
 
@@ -546,7 +505,6 @@ namespace AccessibilityInsights
             InitSelectActionMode();
             HideConfigurationMode();
             UpdateMainWindowUI();
-            this.btnConfig.Focus();
         }
 
         /// <summary>

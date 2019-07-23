@@ -228,26 +228,6 @@ namespace AccessibilityInsights
         /// </summary>
         private void UpdateTabSelection()
         {
-            cvsInspect.Visibility = Visibility.Collapsed;
-            cvsTest.Visibility = Visibility.Collapsed;
-            cvsCCA.Visibility = Visibility.Collapsed;
-
-            switch (this.CurrentPage)
-            {
-                case AppPage.Events:
-                case AppPage.Inspect:
-                    cvsInspect.Visibility = Visibility.Visible;
-                    break;
-                case AppPage.Test:
-                    cvsTest.Visibility = Visibility.Visible;
-                    break;
-                case AppPage.CCA:
-                    cvsCCA.Visibility = Visibility.Visible;
-                    break;
-                default:
-                    break;
-            }
-            this.UpdateNavigationBarAutomationName();
         }
 
         /// <summary>

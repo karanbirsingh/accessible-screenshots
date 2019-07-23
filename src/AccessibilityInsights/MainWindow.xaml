@@ -52,145 +52,6 @@
                 <ColumnDefinition Width="44"/>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <controls:NamedPane Name="bdLeftNav" Orientation="Vertical" Grid.Column="0" BorderThickness="0,0,1,0" Panel.ZIndex="2" HorizontalAlignment="Left" Width="44" AutomationProperties.Name="{x:Static properties:Resources.bdLeftNavAutomationPropertiesName}" BorderBrush="{DynamicResource ResourceKey=LeftNavBorderBrush}" Background="{DynamicResource ResourceKey=LeftNavBarBrush}">
-                <Grid Name="NavigationBar"
-                      KeyboardNavigation.TabNavigation="Cycle">
-                    <Grid.InputBindings>
-                        <KeyBinding Command="{x:Static local:MainWindow.F6Command}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=FrameworkElement}}"
-                            Key="F6"/>
-                        <KeyBinding Command="{x:Static local:MainWindow.ShiftF6Command}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=FrameworkElement}}"
-                            Key="F6"
-                            Modifiers="Shift"/>
-                    </Grid.InputBindings>
-                    <Grid DockPanel.Dock="Top" Height="24" Width="40" VerticalAlignment="Top" Margin="0,11,0,0">
-                        <Image Source="pack://application:,,,/AccessibilityInsights.SharedUx;component/Resources/Icons/BrandIcon_white.ico"  Width="24" Height="24" AutomationProperties.Name="{x:Static properties:Resources.ImageAutomationPropertiesName}" WindowChrome.IsHitTestVisibleInChrome="True" MouseEnter="Image_MouseEnter" MouseDown="Image_MouseDown"/>
-                    </Grid>
-                    <Grid x:Name="ictMainMenu" KeyboardNavigation.TabIndex="1"
-                             DockPanel.Dock="Top" KeyboardNavigation.DirectionalNavigation="Contained"
-                             WindowChrome.IsHitTestVisibleInChrome="True" 
-                             Margin="0,90,0,0"
-                             VerticalAlignment="Top"
-                             KeyboardNavigation.TabNavigation="Once">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Button x:Name="btnInspect" 
-                                Height="40" Width="40"
-                                Style="{StaticResource btnLeftNav}"
-                                AutomationProperties.Name="{Binding AutomationPropertiesNameInspect}"
-                                Command="{x:Static local:MainWindow.ClickInspectCommand}"
-                                AutomationProperties.AcceleratorKey="Ctrl+I">
-                            <Button.ToolTip>
-                                <ToolTip>
-                                    <Run Text="{x:Static properties:Resources.btnInspectToolTip}" />
-                                </ToolTip>
-                            </Button.ToolTip>
-                            <i:Interaction.Behaviors>
-                                <behaviors:KeyboardToolTipButtonBehavior/>
-                            </i:Interaction.Behaviors>
-                            <Grid Width="40" Height="40">
-                                <Canvas x:Name="cvsInspect" HorizontalAlignment="Left" Width="7" Height="Auto" Background="{DynamicResource ResourceKey=ActiveModeBrush}" Visibility="Collapsed"/>
-                                <fabric:FabricIconControl GlyphName="SearchAndApps" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource ResourceKey=LightIconBrush}"/>
-                            </Grid>
-                        </Button>
-                        <Button x:Name="btnTest" 
-                                Height="40" Width="40"
-                                Grid.Row="1"
-                                AutomationProperties.Name="{Binding AutomationPropertiesNameTest}"
-                                Command="{x:Static local:MainWindow.ClickTestCommand}"
-                                AutomationProperties.AcceleratorKey="Ctrl+T"
-                                Style="{StaticResource btnLeftNav}">
-                            <Button.ToolTip>
-                                <ToolTip>
-                                    <Run Text="{x:Static properties:Resources.btnTestToolTip}" />
-                                </ToolTip>
-                            </Button.ToolTip>
-                            <i:Interaction.Behaviors>
-                                <behaviors:KeyboardToolTipButtonBehavior/>
-                            </i:Interaction.Behaviors>
-                            <Grid Width="40" Height="40">
-                                <Canvas x:Name="cvsTest" HorizontalAlignment="Left" Width="7" Height="Auto" Background="{DynamicResource ResourceKey=ActiveModeBrush}"/>
-                                <fabric:FabricIconControl GlyphName="TestBeakerSolid" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource ResourceKey=LightIconBrush}"/>
-                            </Grid>
-                        </Button>
-                        <Button x:Name="btnCCA" 
-                                Height="40" Width="40"
-                                Grid.Row="2"
-                                AutomationProperties.Name="{Binding AutomationPropertiesNameCCA}"
-                                Command="{x:Static local:MainWindow.ClickColorContrastCommand}"
-                                AutomationProperties.AcceleratorKey="Ctrl+R"
-                                Style="{StaticResource btnLeftNav}">
-                            <Button.ToolTip>
-                                <ToolTip>
-                                    <Run Text="{x:Static properties:Resources.btnCCAToolTip}" />
-                                </ToolTip>
-                            </Button.ToolTip>
-                            <i:Interaction.Behaviors>
-                                <behaviors:KeyboardToolTipButtonBehavior/>
-                            </i:Interaction.Behaviors>
-                            <Grid Width="40" Height="40">
-                                <Canvas x:Name="cvsCCA" HorizontalAlignment="Left" Width="7" Height="Auto" Background="{DynamicResource ResourceKey=ActiveModeBrush}"/>
-                                <fabric:FabricIconControl GlyphName="Color" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource ResourceKey=LightIconBrush}"/>
-                            </Grid>
-                        </Button>
-                    </Grid>
-                    <Grid x:Name="ictMainMenuBottop"
-                             VerticalAlignment="Bottom" Margin="0,0,0,20"
-                             WindowChrome.IsHitTestVisibleInChrome="True" 
-                             KeyboardNavigation.DirectionalNavigation="Contained"
-                             Width="40" Height="Auto" AutomationProperties.Name="{x:Static properties:Resources.ictMainMenuBottopAutomationPropertiesName}"
-                             KeyboardNavigation.TabNavigation="Once" KeyboardNavigation.TabIndex="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Button Width="40" Height="40" Grid.Row="0"
-                            Style="{StaticResource btnLeftNav}"
-                            x:Name="btnAccountConfig"
-                            Click="btnAccountConfig_Click"
-                            AutomationProperties.Name="{x:Static properties:Resources.btnAccountConfigAutomationPropertiesName}"
-                            AutomationProperties.HelpText="{x:Static properties:Resources.btnAccountConfigAutomationPropertiesHelpText}">
-                            <Button.ToolTip>
-                                <ToolTip>
-                                    <Run Text="{x:Static properties:Resources.btnAccountConfigToolTip}" />
-                                </ToolTip>
-                            </Button.ToolTip>
-                            <i:Interaction.Behaviors>
-                                <behaviors:KeyboardToolTipButtonBehavior/>
-                            </i:Interaction.Behaviors>
-                            <Grid Width="40" Height="40" x:Name="addAccountGrid">
-                                <Grid x:Name="newAccountGrid" Visibility="Visible">
-                                    <AccessText Text="_i" Opacity="0"/>
-                                    <fabric:FabricIconControl GlyphName="{Binding Path=vmReporterLogo.FabricIconLogoName, TargetNullValue=PlugDisconnected}" FontSize="24" VerticalAlignment="Center" Foreground="{DynamicResource ResourceKey=LightIconBrush}"  HorizontalAlignment="Center"/>
-                                </Grid>
-                            </Grid>
-                        </Button>
-                        <Button Width="40" Height="40"
-                                    x:Name="btnConfig" Grid.Row="1"
-                                    AutomationProperties.AutomationId="{x:Static sharedProps:AutomationIDs.MainWinSettingsButton}"
-                                    AutomationProperties.Name="{x:Static properties:Resources.btnConfigAutomationPropertiesName}"
-                                    AutomationProperties.HelpText="{x:Static properties:Resources.btnConfigAutomationPropertiesHelpText}"
-                                    Style="{StaticResource btnLeftNav}" Click="onbtnConfigClicked">
-                            <Button.ToolTip>
-                                <ToolTip>
-                                    <Run Text="{x:Static properties:Resources.btnConfigToolTip}" />
-                                </ToolTip>
-                            </Button.ToolTip>
-                            <i:Interaction.Behaviors>
-                                <behaviors:KeyboardToolTipButtonBehavior/>
-                            </i:Interaction.Behaviors>
-                            <Grid>
-                                <AccessText Text="_c" Opacity="0"/>
-                                <fabric:FabricIconControl GlyphName="Settings" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource ResourceKey=LightIconBrush}"/>
-                            </Grid>
-                        </Button>
-                    </Grid>
-                </Grid>
-            </controls:NamedPane>
             <Border Grid.Column="0" Margin="0" Panel.ZIndex="2" HorizontalAlignment="Left" Width="44" Opacity=".8" Background="{DynamicResource ResourceKey=DisabledOverlayBrush}">
                 <Border.Style>
                     <Style TargetType="Border">
@@ -491,11 +352,8 @@
                             Modifiers="Shift"/>
                     </Grid.InputBindings>
                     <Grid>
-                        <modecontrols:TestModeControl x:Name="ctrlTestMode" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" VerticalAlignment="Stretch" Visibility="Collapsed"/>
-                        <modecontrols:CCAModeControl x:Name="ctrlCCAMode" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" VerticalAlignment="Stretch" Visibility="Collapsed"/>
                         <modecontrols:LiveModeControl x:Name="ctrlLiveMode" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" VerticalAlignment="Stretch" Visibility="Collapsed"/>
                         <modecontrols:SnapshotModeControl x:Name="ctrlSnapMode" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" VerticalAlignment="Stretch" Visibility="Collapsed"/>
-                        <modecontrols:EventModeControl x:Name="ctrlEventMode" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" VerticalAlignment="Stretch" Visibility="Collapsed"/>
                     </Grid>
                     <Grid x:Name="gridlayerConfig" Background="{DynamicResource ResourceKey=LightBackgroundBrush}" Visibility="Collapsed">
                         <modecontrols:ConfigurationModeControl x:Name="ctrlConfigurationMode" AutomationProperties.Name="{x:Static properties:Resources.ctrlConfigurationModeAutomationPropertiesName}" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" VerticalAlignment="Stretch"/>

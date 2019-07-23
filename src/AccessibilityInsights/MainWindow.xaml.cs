@@ -117,9 +117,6 @@ namespace AccessibilityInsights
         /// </summary>
         private void UpdateNavigationBarAutomationName()
         {
-            AutomationProperties.SetName(btnInspect, AutomationPropertiesNameInspect);
-            AutomationProperties.SetName(btnTest, AutomationPropertiesNameTest);
-            AutomationProperties.SetName(btnCCA, AutomationPropertiesNameCCA);
         }
 
 
@@ -250,7 +247,7 @@ namespace AccessibilityInsights
 
         void InitPanes()
         {
-            this.F6Panes = new List<FrameworkElement> { this.NavigationBar, this.ctrlNamedCommandbar, this.gridLayerModes };
+            this.F6Panes = new List<FrameworkElement> { this.ctrlNamedCommandbar, this.gridLayerModes };
             this.ShiftF6Panes = new List<FrameworkElement>(this.F6Panes);
             this.ShiftF6Panes.Reverse();
         }
@@ -297,11 +294,6 @@ namespace AccessibilityInsights
             if (IssueReporter.IsEnabled)
             {
                 RestoreConfigurationAsync();
-            }
-            else
-            {
-                btnAccountConfig.Visibility = Visibility.Collapsed;
-                btnAccountConfig.SetValue(AutomationProperties.NameProperty, Properties.Resources.btnConfigAutomationPropertiesNameNoBugFiling);
             }
 
             handleWindowStateChange();
@@ -366,9 +358,7 @@ namespace AccessibilityInsights
 
                     ConfigurationManager.GetDefaultInstance().Save();
 
-                    this.ctrlEventMode.ctrlEvents.StopRecordEvents(true);
                     this.isClosed = true;
-                    this.ctrlTestMode.Clear();
 
                     PageTracker.TrackPage(this.CurrentPage, null);
                 }
@@ -739,8 +729,7 @@ namespace AccessibilityInsights
             vmReporterLogo.FabricIconLogoName = isConfigured ? fabricIconName : null;
             string tooltipResource = isConfigured ? Properties.Resources.UpdateMainWindowLoginFieldsSignedInAs : Properties.Resources.HandleLogoutRequestSignIn;
             string tooltipText = string.Format(CultureInfo.InvariantCulture, tooltipResource, IssueReporter.DisplayName);
-            AutomationProperties.SetName(btnAccountConfig, tooltipText);
-            btnAccountConfig.ToolTip = tooltipText;
+
         }
 
         #endregion
