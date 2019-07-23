@@ -138,10 +138,6 @@ namespace AccessibilityInsights.Modes
                 {
                     CaptureAction.SetTestModeDataContext(ecId, this.DataContextMode, Configuration.TreeViewMode);
                     ec = GetDataAction.GetElementContext(ecId);
-
-                    // send telemetry of scan results. 
-                    var dc = GetDataAction.GetElementDataContext(ecId);
-                    dc.PublishScanResults();
                 }).ConfigureAwait(false);
 
                 Application.Current.Dispatcher.Invoke(() =>
@@ -154,8 +150,6 @@ namespace AccessibilityInsights.Modes
                         {
                             this.ctrlHierarchy.CleanUpTreeView();
                         }
-                        this.ctrlHierarchy.SetElement(ec);
-                        this.ctrlTabs.SetElement(ec.Element, false, ec.Id);
 
                         if (ec.DataContext.Screenshot == null && ec.DataContext.Mode != DataContextMode.Load)
                         {
@@ -170,34 +164,9 @@ namespace AccessibilityInsights.Modes
                                 Application.Current.MainWindow.WindowStyle = WindowStyle.SingleBorderWindow;
                             })).Wait();
                         }
-                        var imageOverlay = ImageOverlayDriver.GetDefaultInstance();
-
-                        imageOverlay.SetImageElement(ecId);
-                        //disable button on highlighter. 
-                        imageOverlay.SetHighlighterButtonClickHandler(null);
-
-                        if (Configuration.IsHighlighterOn)
-                        {
-                            imageOverlay.Show();
-                        }
                     }
-
-                    // if it is enforced to select a specific element(like fastpass click case)
-                    if (ec.DataContext.FocusedElementUniqueId.HasValue)
-                    {
-                        this.ctrlHierarchy.SelectElement(ec.DataContext.FocusedElementUniqueId.Value);
-                    }
-
-                    if (!ec.DataContext.Elements.TryGetValue(ec.DataContext.FocusedElementUniqueId ?? 0, out A11yElement selectedElement))
-                    {
-                        selectedElement = ec.DataContext.Elements[0];
-                    }
-                    AutomationProperties.SetName(this, string.Format(CultureInfo.InvariantCulture, Properties.Resources.SetElementInspectTestDetail, selectedElement.Glimpse));
 
                     FireAsyncContentLoadedEvent(AsyncContentLoadedState.Completed);
-
-                    // Set focus on hierarchy tree
-                    Dispatcher.InvokeAsync(() => this.ctrlHierarchy.SetFocusOnHierarchyTree(), DispatcherPriority.Input).Wait();
 
                     ec.DataContext.FocusedElementUniqueId = null;
                 });
@@ -244,6 +213,8 @@ namespace AccessibilityInsights.Modes
                         {
                             MainWin.SetCurrentViewAndUpdateUI(TestView.ElementDetails);
                         }
+
+                        Save();
                     }
                 });
             }

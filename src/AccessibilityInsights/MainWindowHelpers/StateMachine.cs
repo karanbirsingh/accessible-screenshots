@@ -235,7 +235,7 @@ namespace AccessibilityInsights
                 }
 
                 // Based on Ux model feedback from PM team, we decided to go to AutomatedTestResults as default page view for snapshot.
-                StartTestMode(TestView.AutomatedTestResults);
+                StartTestMode(TestView.ElementDetails);
 
                 Logger.PublishTelemetryEvent(TelemetryEventFactory.ForTestRequested(
                     method.ToString(), SelectAction.GetDefaultInstance().Scope.ToString()));
