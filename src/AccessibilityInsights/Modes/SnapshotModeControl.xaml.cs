@@ -99,9 +99,6 @@ namespace AccessibilityInsights.Modes
         public SnapshotModeControl()
         {
             InitializeComponent();
-            this.ctrlHierarchy.IsLiveMode = false;
-            this.ctrlHierarchy.HierarchyActions = this;
-            this.ctrlTabs.SwitchToServerLogin = MainWin.HandleConnectionConfigurationStart;
         }
 
         /// <summary>
@@ -109,13 +106,6 @@ namespace AccessibilityInsights.Modes
         /// </summary>
         public void SelectedElementChanged()
         {
-            A11yElement element = this.ctrlHierarchy.SelectedInHierarchyElement;
-
-            // selection only when UI snapshot is done. 
-            if (element != null && this.IsVisible)
-            {
-                UpdateElementInfoUI(element);
-            }
         }
 
         /// <summary>
@@ -132,7 +122,6 @@ namespace AccessibilityInsights.Modes
 
             try
             {
-                this.ctrlHierarchy.IsEnabled = false;
                 ElementContext ec = null;
                 await Task.Run(() =>
                 {
@@ -145,11 +134,6 @@ namespace AccessibilityInsights.Modes
                     if (ec != null && ec.DataContext != null)
                     {
                         this.ElementContext = ec;
-                        this.ctrlTabs.Clear();
-                        if (!SelectAction.GetDefaultInstance().IsPaused)
-                        {
-                            this.ctrlHierarchy.CleanUpTreeView();
-                        }
 
                         if (ec.DataContext.Screenshot == null && ec.DataContext.Mode != DataContextMode.Load)
                         {
@@ -189,14 +173,6 @@ namespace AccessibilityInsights.Modes
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     this.ctrlProgressRing.Deactivate();
-                    this.ctrlHierarchy.IsEnabled = true;
-
-                    // if focus has gone to the window, we set focus to the hierarchy control. We do this because disabling the hierarchy control
-                    // will throw keyboard focus to mainwindow, where it is not very useful.
-                    if (Keyboard.FocusedElement is Window)
-                    {
-                        this.ctrlHierarchy.Focus();
-                    }
 
                     if (selectionFailure)
                     {
@@ -253,8 +229,6 @@ namespace AccessibilityInsights.Modes
         /// <param name="e"></param>
         private void UpdateElementInfoUI(A11yElement e)
         {
-            this.ctrlTabs.SetElement(e, false, this.ElementContext.Id);
-            
             ImageOverlayDriver.GetDefaultInstance().SetSingleElement(this.ElementContext.Id, e.UniqueId);
         }
 
@@ -284,8 +258,6 @@ namespace AccessibilityInsights.Modes
                 this.SetFocusOnDefaultControl();
             }
             , System.Windows.Threading.DispatcherPriority.Input);
-
-            this.ctrlTabs.CurrentMode = (TestView)(MainWin.CurrentView) == TestView.ElementHowToFix ? InspectTabMode.TestHowToFix : InspectTabMode.TestProperties;
         }
 
         /// <summary>
@@ -311,8 +283,6 @@ namespace AccessibilityInsights.Modes
         {
             this.ElementContext = null;
             ImageOverlayDriver.GetDefaultInstance().Clear();
-            this.ctrlHierarchy.Clear();
-            this.ctrlTabs.Clear();
         }
 
         // <summary>
@@ -331,8 +301,6 @@ namespace AccessibilityInsights.Modes
             MainWin.SizeToContent = SizeToContent.Manual;
             this.columnSnap.Width = new GridLength(CurrentLayout.LayoutSnapshot.ColumnSnapWidth);
 
-            this.ctrlHierarchy.IsLiveMode = false;
-            this.gsMid.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -340,51 +308,7 @@ namespace AccessibilityInsights.Modes
         /// </summary>
         public void CopyToClipboard()
         {
-            StringBuilder sb = new StringBuilder();
-
-            if(Keyboard.FocusedElement is ListViewItem lvi && lvi.DataContext is ScanListViewItemViewModel stvi)
-            {
-                ListView listView = ItemsControl.ItemsControlFromItemContainer(lvi) as ListView;
-                foreach (var item in listView.SelectedItems)
-                {
-                    var vm = item as ScanListViewItemViewModel;
-                    sb.AppendLine(vm.Header);
-                    sb.AppendLine(vm.HowToFixText);
-                }
-            }
-            else if (Keyboard.FocusedElement is TextBox tb)
-            {
-                sb.Append(tb.SelectedText);
-            }
-            else if (this.ElementContext != null)
-            {
-                var se = this.ctrlHierarchy.GetSelectedElement() ?? this.ElementContext.Element;
-
-                // glimpse
-                sb.AppendFormat(CultureInfo.InvariantCulture, "Glimpse: {0}", se.Glimpse);
-                sb.AppendLine();
-                sb.AppendLine();
-
-                sb.AppendLine("Available properties");
-                // properties
-                foreach (var p in se.Properties)
-                {
-                    sb.AppendFormat(CultureInfo.InvariantCulture, "{0}: {1}", p.Value.Name, p.Value.TextValue);
-                    sb.AppendLine();
-                }
-
-                sb.AppendLine();
-
-                sb.AppendLine("Available patterns:");
-                // patterns
-                foreach (var pt in se.Patterns)
-                {
-                    sb.Append(pt.Name);
-                    sb.AppendLine();
-                }
-            }
-            sb.CopyStringToClipboard();
-            sb.Clear();
+            
         }
 
         /// <summary>
@@ -479,7 +403,6 @@ namespace AccessibilityInsights.Modes
             if (visible)
             {
                 ImageOverlayDriver.GetDefaultInstance().Show();
-                ImageOverlayDriver.GetDefaultInstance().SetSingleElement(this.ElementContext.Id, this.ctrlHierarchy.SelectedInHierarchyElement.UniqueId);
             }
             else
             {
@@ -493,7 +416,6 @@ namespace AccessibilityInsights.Modes
         /// </summary>
         public void SetFocusOnDefaultControl()
         {
-            this.ctrlHierarchy.Focus();
         }
 
         /// <summary>

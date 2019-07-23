@@ -90,7 +90,7 @@ namespace AccessibilityInsights.Modes
         public LiveModeControl()
         {
             InitializeComponent();
-            InitF6Panes(this.HierarchyGrid, this.ctrlTabs);
+            InitF6Panes(this.HierarchyGrid);
 
             this.ctrlHierarchy.HierarchyActions = this;
             this.ctrlHierarchy.SetbtnTestElementHandler(this.btnTest_Click);
@@ -266,7 +266,6 @@ namespace AccessibilityInsights.Modes
         /// <param name="e"></param>
         private void UpdateElementInfoUI(A11yElement e)
         {
-            this.ctrlTabs.SetElement(e, e != null && e.PlatformObject != null);
         }
 
         /// <summary>
@@ -296,7 +295,6 @@ namespace AccessibilityInsights.Modes
             }
             , System.Windows.Threading.DispatcherPriority.Input);
 
-            this.ctrlTabs.CurrentMode = AccessibilityInsights.SharedUx.Enums.InspectTabMode.Live;
         }
 
         /// <summary>
@@ -310,7 +308,6 @@ namespace AccessibilityInsights.Modes
             this.SelectedInHierarchyElement = null;
             this.ElementContext = null;
             this.ctrlHierarchy.Clear();
-            this.ctrlTabs.Clear();
         }
 
         // <summary>

@@ -75,16 +75,6 @@
                             AutomationProperties.Name="{x:Static properties:Resources.gsMidAutomationPropertiesName}"
                             AutomationProperties.HelpText="{x:Static properties:Resources.gsMidAutomationPropertiesHelpText1}" DragDelta="gsMid_DragDelta" KeyDown="gsMid_KeyDown"/>
         </Grid>
-        <controls:InspectTabsControl Name="ctrlTabs" Grid.Column="1" CurrentMode="Live" Grid.RowSpan="2"
-                                     AutomationProperties.Name="{x:Static properties:Resources.ctrlTabsElementAutomationPropertiesName}"
-                                     KeyboardNavigation.TabNavigation="Cycle">
-            <controls:InspectTabsControl.InputBindings>
-                <KeyBinding Command="{x:Static local:MainWindow.ShiftF6Command}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=FrameworkElement}}"
-                            Key="F6"
-                            Modifiers="Shift"/>
-            </controls:InspectTabsControl.InputBindings>
-        </controls:InspectTabsControl>
         <fabric:ProgressRingControl Size="30" Grid.RowSpan="2" 
                                       x:Name="ctrlProgressRing" 
                                       WithSound="{Binding Path=(Util:HelperMethods.PlayScanningSound)}" 

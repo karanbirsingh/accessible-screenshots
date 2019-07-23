@@ -21,23 +21,7 @@
             <ColumnDefinition x:Name="columnSnap" Width="360"/>
             <ColumnDefinition x:Name="columnInfo" Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <controls:HierarchyControl x:Name="ctrlHierarchy"
-                                                VerticalAlignment="Stretch"/>
-        </Grid>
-        <GridSplitter x:Name="gsMid" Grid.RowSpan="2"
-                        FocusVisualStyle="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}"
-                        Grid.Column="0"
-                        VerticalAlignment="Stretch"
-                        HorizontalAlignment="Right"
-                        ResizeDirection="Columns"
-                        BorderBrush="Gray" BorderThickness="1"
-                        AutomationProperties.Name="{x:Static properties:Resources.gsMidAutomationPropertiesName}"
-                        AutomationProperties.HelpText="{x:Static properties:Resources.HandleFailedSelectionResetConnectionLostMessage}"/>
-        <controls:InspectTabsControl Name="ctrlTabs" Grid.Column="1" CurrentMode="TestProperties" AutomationProperties.Name="{x:Static properties:Resources.ctrlTabsElementAutomationPropertiesName}" Grid.RowSpan="2"/>
+        
         <fabric:ProgressRingControl Size="30" Grid.RowSpan="2"
                                 x:Name="ctrlProgressRing"
                                 WithSound="{Binding Path=(Util:HelperMethods.PlayScanningSound)}"

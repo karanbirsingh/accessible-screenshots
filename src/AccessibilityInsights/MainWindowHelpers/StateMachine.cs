@@ -427,11 +427,6 @@ namespace AccessibilityInsights
                 }
             }
 
-            StartElementHowToFixView(() =>
-            {
-                Dispatcher.Invoke(() => ctrlSnapMode.ctrlHierarchy.FileBug());
-            });
-
             UpdateMainWindowUI();
         }
 
