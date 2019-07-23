@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Windows.Interactivity;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -30,13 +31,31 @@ namespace AccessibilityInsights.Misc
         {
             var a11yElement = DataManager.GetDefaultInstance().GetA11yElement(ecId, 0);
             var bm = DataManager.GetDefaultInstance().GetScreenshot(ecId);
-
+            var screenshotElement = DataManager.GetDefaultInstance().GetScreenshotElement(ecId);
             var trimmedElement = FromA11yElement(a11yElement);
-            var encoded = AddMetadata(bm, trimmedElement);
+
+            var trimmedScreenshot = TrimScreenshot(bm, screenshotElement.BoundingRectangle, a11yElement.BoundingRectangle);
+            var encoded = AddMetadata(trimmedScreenshot, trimmedElement);
             using (FileStream str = File.Open(path, FileMode.Create))
             {
                 encoded.Save(str);
             }
+        }
+
+        private static Bitmap TrimScreenshot(Bitmap bm, Rectangle source, Rectangle portion)
+        {
+            var relativeX = portion.X - source.X;
+            var relativeY = portion.Y - source.Y;
+
+            Bitmap target = new Bitmap(portion.Width, portion.Height);
+
+            using (Graphics g = Graphics.FromImage(target))
+            {
+                g.DrawImage(bm, new Rectangle(0, 0, target.Width, target.Height),
+                                 new Rectangle(relativeX, relativeY, target.Width, target.Height),
+                                 GraphicsUnit.Pixel);
+            }
+            return target;
         }
 
         static ElementNode FromA11yElement(IA11yElement element)
