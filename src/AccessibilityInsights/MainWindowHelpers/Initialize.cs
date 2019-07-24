@@ -124,9 +124,7 @@ namespace AccessibilityInsights
             // Configure the correct ReleaseChannel for autoupdate
             Container.SetAutoUpdateReleaseChannel(ConfigurationManager.GetDefaultInstance().AppConfig.ReleaseChannel.ToString());
 
-            // enable/disable telemetry
-            if (ConfigurationManager.GetDefaultInstance().AppConfig.EnableTelemetry)
-                TelemetryController.EnableTelemetry();
+            TelemetryController.DisableTelemetry();
         }
 
         /// <summary>
