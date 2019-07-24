@@ -71,8 +71,8 @@ namespace AccessibilityInsights.SharedUx.Settings
         {
             Top = top;
             Left = left;
-            Width = 870;
-            Height = 720;
+            Width = 300;
+            Height = 400;
             WinState = WindowState.Normal;
             LayoutLive = MainWindowLayout.GetLayoutLive();
             LayoutSnapshot = MainWindowLayout.GetLayoutSnapshot();

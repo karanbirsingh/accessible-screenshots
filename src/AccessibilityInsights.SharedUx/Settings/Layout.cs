@@ -56,8 +56,8 @@ namespace AccessibilityInsights.SharedUx.Settings
         {
             return new MainWindowLayout()
             {
-                Width = 460,
-                Height = 500,
+                Width = 300,
+                Height = 400,
                 ColumnSnapWidth = 410,
                 RowPropertiesHeight = 46 * 7,
                 RowPatternsHeight = 46 * 3,
