@@ -26,7 +26,7 @@ namespace AccessibilityInsights.SharedUx.Highlighting
         const int BorderMargin = 1;
         const int DefaultWidth = 20;
         const int DefaultHeight = 20;
-        const String BeakerCode = "\uF3A6";
+        const String ScreenshotCode = "\uF5D9";
         private int Width = DefaultWidth;
         private int Height = DefaultHeight;
         private System.Drawing.Color FontBrush;
@@ -140,7 +140,7 @@ namespace AccessibilityInsights.SharedUx.Highlighting
                 int fontSize = Convert.ToInt32(9.0f * DPI);
                 g.Clear(bkgColor);
                 g.DrawString(
-                    BeakerCode,
+                    ScreenshotCode,
                     new Font(family, fontSize, System.Drawing.FontStyle.Regular),
                     new SolidBrush(this.FontBrush),
                     new Rectangle(0, 0, this.Width, this.Height + BorderMargin * 3),
