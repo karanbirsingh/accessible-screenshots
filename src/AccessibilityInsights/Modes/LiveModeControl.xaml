@@ -35,8 +35,8 @@
             </Grid.RowDefinitions>
             <controls:HierarchyControl x:Name="ctrlHierarchy"
                                         Grid.Row="1" Visibility="Collapsed"
-                                        VerticalAlignment="Stretch"/>
-            <StackPanel Name="spInstructions" Grid.Row="1" KeyboardNavigation.IsTabStop="True">
+                                        VerticalAlignment="Stretch" Margin="0,8"/>
+            <StackPanel Name="spInstructions" Grid.Row="0" KeyboardNavigation.IsTabStop="True">
                 <TextBlock Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="16" FontStyle="Italic" FontSize="{DynamicResource StandardTextSize}" Style="{StaticResource TbFocusable}">
                     <Run Text="Screenshots are saved as PNG files and include embedded accessibility information."/>
                 </TextBlock>

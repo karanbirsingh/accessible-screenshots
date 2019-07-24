@@ -614,7 +614,7 @@ namespace AccessibilityInsights.SharedUx.Settings
                 SelectionByFocus = true,
                 SelectionByMouse = true,
                 ShowWelcomeScreenOnLaunch = true,
-                AlwaysOnTop = true,
+                AlwaysOnTop = false,
                 PlayScanningSound = false,
                 DisableTestsInSnapMode = false,
                 IsHighlighterOn = true,

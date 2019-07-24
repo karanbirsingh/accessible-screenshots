@@ -580,6 +580,7 @@ namespace AccessibilityInsights
                 this.vmLiveModePauseResume.State = ButtonState.On;
                 SelectAction.GetDefaultInstance().ResumeUIATreeTracker();
                 AutomationProperties.SetName(btnPause, "Cancel screenshot capture");
+                Title = Title + " (Shift + F8 to take screenshot, escape to cancel)";
             }
             else
             {
@@ -589,6 +590,7 @@ namespace AccessibilityInsights
                 ctrlLiveMode.Clear();
                 SelectAction.GetDefaultInstance().ClearSelectedContext();
                 HollowHighlightDriver.ClearAllHighlighters();
+                Title = Title.Replace(" (Shift + F8 to take screenshot, escape to cancel)", "");
             }
             UpdateMainWindowUI();
         }
