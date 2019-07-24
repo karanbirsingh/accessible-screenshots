@@ -574,17 +574,21 @@ namespace AccessibilityInsights
         /// </summary>
         internal void HandlePauseButtonToggle(bool enabled)
         {
+            SetHighlightBtnState(enabled);
             if (enabled)
             {
                 this.vmLiveModePauseResume.State = ButtonState.On;
                 SelectAction.GetDefaultInstance().ResumeUIATreeTracker();
-                AutomationProperties.SetName(btnPause, Properties.Resources.btnPauseAutomationPropertiesNameOn);
+                AutomationProperties.SetName(btnPause, "Cancel screenshot capture");
             }
             else
             {
                 this.vmLiveModePauseResume.State = ButtonState.Off;
                 SelectAction.GetDefaultInstance().PauseUIATreeTracker();
-                AutomationProperties.SetName(btnPause, Properties.Resources.btnPauseAutomationPropertiesNameOff);
+                AutomationProperties.SetName(btnPause, "Capture new screenshot");
+                ctrlLiveMode.Clear();
+                SelectAction.GetDefaultInstance().ClearSelectedContext();
+                HollowHighlightDriver.ClearAllHighlighters();
             }
             UpdateMainWindowUI();
         }

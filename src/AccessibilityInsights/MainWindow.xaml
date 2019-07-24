@@ -14,7 +14,7 @@
         xmlns:controls="clr-namespace:AccessibilityInsights.SharedUx.Controls;assembly=AccessibilityInsights.SharedUx"
         xmlns:sharedProps="clr-namespace:AccessibilityInsights.SharedUx.Properties;assembly=AccessibilityInsights.SharedUx"
         mc:Ignorable="d"
-        Title="{x:Static properties:Resources.MainWindowWindowTitle}"
+        Title="accessible screenshots"
         MinWidth="304"
         MinHeight="425"
         ResizeMode="CanResize"
@@ -33,23 +33,10 @@
         <KeyBinding Command="{x:Static local:MainWindow.ClickInspectCommand}"
                     Key="I"
                     Modifiers="Ctrl"/>
-        <KeyBinding Command="{x:Static local:MainWindow.CtrlOCommand}"
-                    Key="O"
-                    Modifiers="Ctrl"/>
-        <KeyBinding Command="{x:Static local:MainWindow.CtrlSCommand}"
-                    Key="S"
-                    Modifiers="Ctrl"/>
-        <KeyBinding Command="{x:Static local:MainWindow.ClickTestCommand}"
-                    Key="T"
-                    Modifiers="Ctrl"/>
-        <KeyBinding Command="{x:Static local:MainWindow.ClickColorContrastCommand}"
-                    Key="R"
-                    Modifiers="Ctrl"/>
     </Window.InputBindings>
     <DockPanel Name="dockPanelMain" LastChildFill="True">
         <Grid Name="modeGrid">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="44"/>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0" Margin="0" Panel.ZIndex="2" HorizontalAlignment="Left" Width="44" Opacity=".8" Background="{DynamicResource ResourceKey=DisabledOverlayBrush}">
@@ -125,8 +112,6 @@
                     </Grid>
                 </Border>
                 <controls:NamedPane x:Name="ctrlNamedCommandbar"
-                                    KeyboardNavigation.DirectionalNavigation="Contained"
-                                    KeyboardNavigation.TabNavigation="Cycle"
                                     Grid.Row="1" Grid.RowSpan="2" Height="Auto"
                                     BorderThickness="0" Visibility="Collapsed"
                                     AutomationProperties.Name="{x:Static properties:Resources.ctrlNamedCommandbarAutomationPropertiesName}">
@@ -142,12 +127,11 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <StackPanel x:Name="spCommandBar" Grid.Row="0" Background="{DynamicResource ResourceKey=LightGreyBrush}"
                             WindowChrome.IsHitTestVisibleInChrome="True" Focusable="True" GotKeyboardFocus="spCommandBar_GotKeyboardFocus"
                             Orientation="Horizontal" KeyboardNavigation.DirectionalNavigation="Cycle"
-                            Height="28" KeyboardNavigation.TabNavigation="Once"
+                            Height="32" KeyboardNavigation.TabNavigation="Once"
                             HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <TextBlock x:Name="tbComboboxLabel" FontSize="{StaticResource ConstStandardTextSize}" Text="{x:Static properties:Resources.tbComboboxLabelText}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8,0"/>
                             <ComboBox x:Name="cbSelectionScope" AutomationProperties.Name="{x:Static properties:Resources.cbSelectionScopeAutomationPropertiesName}" Width="92" 
@@ -157,7 +141,7 @@
                                 <ComboBoxItem x:Name="cbiElement" Content="{x:Static properties:Resources.cbiElementContent}" AutomationProperties.Name="{x:Static properties:Resources.cbiElementAutomationPropertiesName}" IsSelected="True"/>
                                 <ComboBoxItem x:Name="cbiEntireApp" Content="{x:Static properties:Resources.cbiEntireAppContent}" AutomationProperties.Name="{x:Static properties:Resources.cbiEntireAppAutomationPropertiesName}"/>
                             </ComboBox>
-                            <Button x:Name="btnHilighter" AutomationProperties.AutomationId="{x:Static sharedProps:AutomationIDs.MainWinHighlightButton}"
+                            <Button Visibility="Collapsed" x:Name="btnHilighter" AutomationProperties.AutomationId="{x:Static sharedProps:AutomationIDs.MainWinHighlightButton}"
                                 VerticalAlignment="Center" HorizontalAlignment="Left" Height="24" Width="24" Margin="4,0,0,0"
                                 Click="onHilightButtonClicked"
                                 AutomationProperties.Name="{x:Static properties:Resources.btnHilighterAutomationPropertiesNameOn}">
@@ -204,7 +188,7 @@
                                     </fabric:FabricIconControl.Style>
                                 </fabric:FabricIconControl>
                             </Button>
-                            <Button x:Name="btnRefresh"
+                            <Button Visibility="Collapsed" x:Name="btnRefresh"
                                     Style="{StaticResource BtnStandard}"
                                     VerticalAlignment="Center" HorizontalAlignment="Left" Height="24" Width="24" Margin="16,0,0,0"
                                     AutomationProperties.Name="{x:Static properties:Resources.btnRefreshAutomationPropertiesName}" Click="btnRefresh_Click">
@@ -218,7 +202,7 @@
                                 </i:Interaction.Behaviors>
                                 <fabric:FabricIconControl GlyphName="Refresh" FontSize="16" Foreground="{DynamicResource ResourceKey=IconBrush}"/>
                             </Button>
-                            <Button x:Name="btnSave"
+                            <Button Visibility="Collapsed" x:Name="btnSave"
                                     Style="{StaticResource BtnStandard}"
                                     VerticalAlignment="Center" HorizontalAlignment="Left" Height="24" Width="24" Margin="4,0,0,0"
                                     AutomationProperties.Name="{x:Static properties:Resources.btnSaveAutomationPropertiesName}" Click="btnSave_Click">
@@ -233,9 +217,9 @@
                                 <fabric:FabricIconControl GlyphName="Save" FontSize="16" Foreground="{DynamicResource ResourceKey=IconBrush}"/>
                             </Button>
                             <Button x:Name="btnPause"
-                                VerticalAlignment="Center" HorizontalAlignment="Left" Height="24" Width="24" Margin="4,0,0,0"
+                                VerticalAlignment="Center" HorizontalAlignment="Left" Height="32"  Margin="8,0,0,0" Padding="4"
                                 Click="btnPause_Click"
-                                AutomationProperties.Name="{x:Static properties:Resources.btnPauseAutomationPropertiesNameOn}"
+                                AutomationProperties.LabeledBy="{Binding ElementName=screenshotLabel}"
                                 AutomationProperties.AutomationId="{x:Static sharedProps:AutomationIDs.MainWinPauseButton}">
                                 <i:Interaction.Behaviors>
                                     <behaviors:KeyboardToolTipButtonBehavior/>
@@ -243,44 +227,41 @@
                                 <Button.Style>
                                     <Style TargetType="Button" BasedOn="{StaticResource BtnStandard}">
                                         <Setter Property="FocusVisualStyle" Value="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=vmLiveModePauseResume.State, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}" Value="On">
-                                                <Setter Property="Button.ToolTip">
-                                                    <Setter.Value>
-                                                        <ToolTip>
-                                                            <Run Text="{x:Static properties:Resources.btnPauseAutomationPropertiesNameOn}" />
-                                                        </ToolTip>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=vmLiveModePauseResume.State, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}" Value="Off">
-                                                <Setter Property="Button.ToolTip">
-                                                    <Setter.Value>
-                                                        <ToolTip>
-                                                            <Run Text="{x:Static properties:Resources.btnPauseAutomationPropertiesNameOff}" />
-                                                        </ToolTip>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-                                        </Style.Triggers>
+                                        
                                     </Style>
                                 </Button.Style>
-                                <fabric:FabricIconControl Height="16" Width="16" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource ResourceKey=IconBrush}" GlyphSize="Default">
-                                    <fabric:FabricIconControl.Style>
-                                        <Style TargetType="fabric:FabricIconControl">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Path=vmLiveModePauseResume.State, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}" Value="On">
-                                                    <Setter Property="GlyphName" Value="Pause"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding Path=vmLiveModePauseResume.State, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}" Value="Off">
-                                                    <Setter Property="GlyphName" Value="Play"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </fabric:FabricIconControl.Style>
-                                </fabric:FabricIconControl>
+                                <StackPanel Orientation="Horizontal" Height="32">
+                                    <fabric:FabricIconControl Height="32" Width="32" Margin="8,0,4,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="{DynamicResource ResourceKey=IconBrush}" GlyphSize="Large">
+                                        <fabric:FabricIconControl.Style>
+                                            <Style TargetType="fabric:FabricIconControl">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=vmLiveModePauseResume.State, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}" Value="On">
+                                                        <Setter Property="GlyphName" Value="Cancel"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=vmLiveModePauseResume.State, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}" Value="Off">
+                                                        <Setter Property="GlyphName" Value="DesktopScreenshot"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </fabric:FabricIconControl.Style>
+                                    </fabric:FabricIconControl>
+                                    <TextBlock FontWeight="SemiBold" VerticalAlignment="Top" Margin="0,2,0,0" x:Name="screenshotLabel">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=vmLiveModePauseResume.State, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}" Value="On">
+                                                        <Setter Property="Text" Value="Cancel screenshot capture"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=vmLiveModePauseResume.State, Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}}" Value="Off">
+                                                        <Setter Property="Text" Value="Capture new screenshot"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
                             </Button>
-                            <Button x:Name="btnTimer"
+                            <Button Visibility="Collapsed" x:Name="btnTimer"
                             Style="{StaticResource BtnStandard}"
                             VerticalAlignment="Center" HorizontalAlignment="Left" Height="24" Width="24" Margin="4,0,0,0"
                             AutomationProperties.Name="{x:Static properties:Resources.btnTimerAutomationPropertiesName}">
@@ -309,7 +290,7 @@
                                     </ContextMenu>
                                 </Button.ContextMenu>
                             </Button>
-                            <Button x:Name="btnLoad"
+                            <Button Visibility="Collapsed" x:Name="btnLoad"
                                 Style="{StaticResource BtnStandard}" AutomationProperties.AutomationId="{x:Static sharedProps:AutomationIDs.MainWinLoadButton}"
                                 VerticalAlignment="Center" HorizontalAlignment="Left" Height="24" Width="24" Margin="4,0,0,0"
                                 AutomationProperties.Name="{x:Static properties:Resources.btnLoadAutomationPropertiesName}" Click="btnLoad_Click">
@@ -324,8 +305,8 @@
                                 <fabric:FabricIconControl GlyphName="OpenFolderHorizontal" FontSize="16" Foreground="{DynamicResource ResourceKey=IconBrush}"/>
                             </Button>
                         </StackPanel>
-                        <Label Padding="8,0" Name="lblVersion" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" FontSize="{StaticResource ConstStandardTextSize}"/>
-                        <StackPanel Margin="0" Background="{DynamicResource ResourceKey=LightBackgroundBrush}" Name="spBreadcrumbs" Orientation="Horizontal" Height="34" Grid.Row="1" KeyboardNavigation.DirectionalNavigation="Contained" KeyboardNavigation.TabNavigation="Once">
+                        <Label Visibility="Collapsed" Padding="8,0" Name="lblVersion" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" FontSize="{StaticResource ConstStandardTextSize}"/>
+                        <StackPanel Visibility="Collapsed" Margin="0" Background="{DynamicResource ResourceKey=LightBackgroundBrush}" Name="spBreadcrumbs" Orientation="Horizontal" Height="34" Grid.Row="1" KeyboardNavigation.DirectionalNavigation="Contained" KeyboardNavigation.TabNavigation="Once">
                             <Button FontSize="{StaticResource ConstXLTextSize}" Name="btnCrumbOne" Style="{StaticResource btnLink}" 
                                     Content="One" Click="btnCrumbOne_Click" Margin="8,0,0,0" VerticalAlignment="Center"
                                     AutomationProperties.AutomationId="{x:Static sharedProps:AutomationIDs.MainWinBreadCrumbOneButton}"/>

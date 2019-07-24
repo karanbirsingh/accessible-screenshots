@@ -286,8 +286,6 @@ namespace AccessibilityInsights.Modes
         {
             AdjustMainWindowSize();
             this.Visibility = Visibility.Visible;
-            this.runHkTest.Text = Configuration.HotKeyForSnap;
-            this.runHkActivate.Text = Configuration.HotKeyForActivatingMainWindow;
             ClearSelectedItem();
             Dispatcher.Invoke(() =>
             {
@@ -429,7 +427,6 @@ namespace AccessibilityInsights.Modes
             } 
             else
             {
-                this.tbInstructions.Focus();
             }
         }
 

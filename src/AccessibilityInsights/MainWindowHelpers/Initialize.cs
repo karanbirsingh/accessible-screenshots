@@ -52,11 +52,12 @@ namespace AccessibilityInsights
             InitAccessKeyRule();
             InitHighlighter();
 
+            ConfigurationManager.GetDefaultInstance().AppConfig.ShowWelcomeScreenOnLaunch = false;
+
             /// Set UI appropriately if showing startup screen
             if (ConfigurationManager.GetDefaultInstance().AppConfig.NeedToShowWelcomeScreen())
             {
                 this.gdModes.Visibility = Visibility.Collapsed;
-                this.ctrlStartUpMode.ShowControl();
                 //show telemetry dialog
                 ShowTelemetryDialog();
                 // make sure that we show update. 

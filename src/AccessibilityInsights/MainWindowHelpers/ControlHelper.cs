@@ -194,15 +194,14 @@ namespace AccessibilityInsights
                 this.ctrlNamedCommandbar.Visibility = Visibility.Visible;
             }
 
-            this.btnHilighter.Visibility = this.CurrentPage == AppPage.CCA ? Visibility.Collapsed : Visibility.Visible;
-            this.btnRefresh.Visibility = this.ctrlCurMode.IsRefreshEnabled ? Visibility.Visible : Visibility.Collapsed;
-            this.btnSave.Visibility = this.ctrlCurMode.IsSaveEnabled ? Visibility.Visible : Visibility.Collapsed;
-            this.btnLoad.Visibility = this.IsInSelectingState() ? Visibility.Visible : Visibility.Collapsed;
-            this.tbComboboxLabel.Visibility = this.IsInSelectingState() ? Visibility.Visible : Visibility.Collapsed;
-            this.btnTimer.Visibility = this.IsInSelectingState() ? Visibility.Visible : Visibility.Collapsed;
-            this.cbSelectionScope.Visibility = this.IsInSelectingState() ? Visibility.Visible : Visibility.Collapsed;
+            this.btnHilighter.Visibility = Visibility.Collapsed;
+            this.btnRefresh.Visibility = Visibility.Collapsed;
+            this.btnSave.Visibility = Visibility.Collapsed;
+            this.btnLoad.Visibility = Visibility.Collapsed;
+            this.tbComboboxLabel.Visibility = Visibility.Collapsed;
+            this.btnTimer.Visibility = Visibility.Collapsed;
+            this.cbSelectionScope.Visibility = Visibility.Collapsed;
             this.btnPause.Visibility = (this.CurrentPage == AppPage.Inspect) && (this.gridlayerConfig.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
-
             // add n of m info to UIA name based on currently visible focusable controls
             var visibleCommands = new List<UIElement>();
             foreach (UIElement child in this.spCommandBar.Children)
@@ -237,7 +236,8 @@ namespace AccessibilityInsights
         /// <returns></returns>
         private void UpdateTitleString()
         {
-            this.Title = string.Format(CultureInfo.InvariantCulture, Properties.Resources.MainWindow_UpdateTitleString_Accessibility_Insights_for_Windows_0, GetCurrentStateTextBasedOnCurrentPageAndCurrentView());
+            //this.Title = string.Format(CultureInfo.InvariantCulture, Properties.Resources.MainWindow_UpdateTitleString_Accessibility_Insights_for_Windows_0, GetCurrentStateTextBasedOnCurrentPageAndCurrentView());
+            
             UpdateBreadcrumbs();
         }
 

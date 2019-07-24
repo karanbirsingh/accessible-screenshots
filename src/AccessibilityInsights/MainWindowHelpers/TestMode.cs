@@ -81,7 +81,7 @@ namespace AccessibilityInsights
             else
             {
                 this.AllowFurtherAction = false;
-                MessageDialog.Show(Properties.Resources.StartElementDetailViewNoElementIsSelectedMessage);
+                //MessageDialog.Show(Properties.Resources.StartElementDetailViewNoElementIsSelectedMessage);
                 this.AllowFurtherAction = true;
             }
         }

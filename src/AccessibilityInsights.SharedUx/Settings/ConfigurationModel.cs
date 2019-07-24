@@ -471,6 +471,9 @@ namespace AccessibilityInsights.SharedUx.Settings
             _settings = new SettingsDictionary(source);
             AppVersion = VersionTools.GetAppVersion();
             Version = CurrentVersion;
+            AlwaysOnTop = false;
+            this.EnableTelemetry = false;
+            this.ShowTelemetryDialog = false;
         }
 
         /// <summary>

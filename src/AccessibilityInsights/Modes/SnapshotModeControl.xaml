@@ -13,16 +13,7 @@
              mc:Ignorable="d" AutomationProperties.AutomationId="{x:Static sharedProps:AutomationIDs.SnapshotModeControl}"
              AutomationProperties.Name="{x:Static properties:Resources.SnapshotModeControlAutomationPropertiesName}" Height="600" Width="600">
     <Grid Panel.ZIndex="1">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="34"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="columnSnap" Width="360"/>
-            <ColumnDefinition x:Name="columnInfo" Width="*"/>
-        </Grid.ColumnDefinitions>
-        
-        <fabric:ProgressRingControl Size="30" Grid.RowSpan="2"
+        <fabric:ProgressRingControl Size="30"
                                 x:Name="ctrlProgressRing"
                                 WithSound="{Binding Path=(Util:HelperMethods.PlayScanningSound)}"
                                 Visibility="Collapsed"/>

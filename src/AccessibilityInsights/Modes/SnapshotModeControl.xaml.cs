@@ -190,7 +190,12 @@ namespace AccessibilityInsights.Modes
                             MainWin.SetCurrentViewAndUpdateUI(TestView.ElementDetails);
                         }
 
+                        this.ctrlProgressRing.Activate();
                         Save();
+                        this.ctrlProgressRing.Deactivate();
+                        MainWin.btnCrumbOne_Click(null, null);
+                        MainWin.HandleSnapshotRequest(MainWindow.TestRequestSources.HotKey);
+                        MainWin.HandlePauseButtonToggle(false);
                     }
                 });
             }
@@ -290,7 +295,6 @@ namespace AccessibilityInsights.Modes
         // </summary>
         public void UpdateConfigWithSize()
         {
-            CurrentLayout.LayoutSnapshot.ColumnSnapWidth = this.columnSnap.Width.Value;
         }
 
         // <summary>
@@ -299,7 +303,6 @@ namespace AccessibilityInsights.Modes
         public void AdjustMainWindowSize()
         {
             MainWin.SizeToContent = SizeToContent.Manual;
-            this.columnSnap.Width = new GridLength(CurrentLayout.LayoutSnapshot.ColumnSnapWidth);
 
         }
 

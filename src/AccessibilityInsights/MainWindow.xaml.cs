@@ -38,7 +38,7 @@ namespace AccessibilityInsights
     public partial class MainWindow : Window, IMainWindow, IControlTreeNavigation
 #pragma warning restore CA1001 // Types that own disposable fields should be disposable
     {
-        const string HelpDocLink = "https://go.microsoft.com/fwlink/?linkid=2077919";
+        const string HelpDocLink = "https://www.github.com/karanbirsingh/accessible-screenshots";
 
         IntPtr hWnd;
         private bool isClosed = false;
@@ -304,6 +304,9 @@ namespace AccessibilityInsights
             StartStartMode();
 
             HandleFileAssociationOpenRequest();
+
+            SetHighlightBtnState(false);
+            btnPause_Click(null, null);
         }
 
         /// <summary>
@@ -499,7 +502,7 @@ namespace AccessibilityInsights
         /// <param name="e"></param>
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo(HelpDocLink));
+            Process.Start(new ProcessStartInfo("https://www.github.com/karanbirsingh/accessible-screenshots"));
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -508,6 +511,10 @@ namespace AccessibilityInsights
             if (e.Key == Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && !(Keyboard.FocusedElement is ListViewItem lvi && !(lvi.DataContext is ScanListViewItemViewModel)))
             {
                 ctrlCurMode.CopyToClipboard();
+            }
+            else if (e.Key == Key.Escape && vmLiveModePauseResume.State == ButtonState.On)
+            {
+                btnPause_Click(null, null);
             }
             else
             {
@@ -930,7 +937,7 @@ namespace AccessibilityInsights
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnCrumbOne_Click(object sender, RoutedEventArgs e)
+        public void btnCrumbOne_Click(object sender, RoutedEventArgs e)
         {
             /// make sure that we are not capturing data. 
             if (IsCapturingData() == false)

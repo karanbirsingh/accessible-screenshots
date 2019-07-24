@@ -18,12 +18,12 @@
     </UserControl.Resources>
     <Grid Panel.ZIndex="1">
         <Grid.RowDefinitions>
-            <RowDefinition Height="34"/>
+            <RowDefinition Height="0"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Name="HierarchyGrid"
             Grid.Column="0" Grid.Row="1"
-              KeyboardNavigation.TabNavigation="Cycle">
+              KeyboardNavigation.TabNavigation="Continue">
             <Grid.InputBindings>
                 <KeyBinding Command="{x:Static local:MainWindow.F6Command}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=FrameworkElement}}"
@@ -37,31 +37,13 @@
                                         Grid.Row="1" Visibility="Collapsed"
                                         VerticalAlignment="Stretch"/>
             <StackPanel Name="spInstructions" Grid.Row="1" KeyboardNavigation.IsTabStop="True">
-                <TextBlock Name="tbInstructions" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="16" FontStyle="Italic" FontSize="{DynamicResource StandardTextSize}" Style="{StaticResource TbFocusable}">
-                    <Run Text="{x:Static properties:Resources.LiveModeControl_HoverOverElement}"/>
-                    <Run Name="runHkActivate"/><Run Text="."/>
-                    <TextBlock>
-                        <Hyperlink NavigateUri="https://go.microsoft.com/fwlink/?linkid=2075123" RequestNavigate="Hyperlink_RequestNavigate" FocusVisualStyle="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}">
-                             <Run Text="{x:Static properties:Resources.LiveModeControl_LearnMoreInspect}"/>
-                        </Hyperlink><Run Text="."/>
-                    </TextBlock>
-                </TextBlock>
-
                 <TextBlock Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="16" FontStyle="Italic" FontSize="{DynamicResource StandardTextSize}" Style="{StaticResource TbFocusable}">
-                    <Run Text="{x:Static properties:Resources.LiveModeControl_RunAutomatedChecks}"/>
-                    <fabric:FabricIconControl GlyphName="TestBeaker" GlyphSize="Custom" FontSize="{DynamicResource StandardTextSize}" Margin="0,-2" Foreground="{DynamicResource ResourceKey=IconBrush}" FontStyle="Normal"/>
-                    <Run Text="{x:Static properties:Resources.LiveModeControl_FocusOnElement}"/>
-                    <Run Name="runHkTest"/><Run Text="."/>
-                    <TextBlock>
-                        <Hyperlink NavigateUri="https://go.microsoft.com/fwlink/?linkid=2077027" RequestNavigate="Hyperlink_RequestNavigate" FocusVisualStyle="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}">
-                             <Run Text="{x:Static properties:Resources.LiveModeControl_LearnMoreAutomated}"/>
-                        </Hyperlink><Run Text="."/>
-                    </TextBlock>
+                    <Run Text="Screenshots are saved as PNG files and include embedded accessibility information."/>
                 </TextBlock>
 
             </StackPanel>
             <controls:DisplayCountControl Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="ccDisplayCount" Visibility="Collapsed"/>
-            <GridSplitter x:Name="gsMid"
+            <GridSplitter x:Name="gsMid" IsTabStop="False" KeyboardNavigation.TabNavigation="None"
                             FocusVisualStyle="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}"
                             Grid.Column="0" Grid.RowSpan="2"
                             VerticalAlignment="Stretch"
