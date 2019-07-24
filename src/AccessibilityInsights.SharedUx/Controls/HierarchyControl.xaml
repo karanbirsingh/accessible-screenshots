@@ -27,7 +27,7 @@
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Path=NeedSnapshot, Mode=OneWay}" Value="true">
                                             <Setter Property="Header" Value="{x:Static Properties:Resources.SetterValueTest}"/>
-                                            <Setter Property="Tag" Value="TestBeaker"/>
+                                            <Setter Property="Tag" Value="DesktopScreenshot"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding Path=NeedSnapshot, Mode=OneWay}" Value="false">
                                             <Setter Property="Header" Value="{x:Static Properties:Resources.SetterValueExpandAllDescendants}"/>
@@ -71,7 +71,7 @@
             <converters:TreeNodeToMarginConverter x:Key="nodeMargin"></converters:TreeNodeToMarginConverter>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid KeyboardNavigation.DirectionalNavigation="Contained">
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -180,14 +180,7 @@
                         <Setter Property="AutomationProperties.Name" Value="{Binding Path=AutomationName, Mode=OneWay}"/>
                         <EventSetter Event="RequestBringIntoView" Handler="TreeViewItem_RequestBringIntoView"/>
                         <EventSetter Event="Selected" Handler="OnSelected"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsLiveMode}" Value="False">
-                                <Setter Property="ContextMenu" Value="{StaticResource ExpandDescendantsPopup}"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsLiveMode}" Value="True">
-                                <Setter Property="ContextMenu" Value="{StaticResource cmLive}"/>
-                            </DataTrigger>
-                        </Style.Triggers>
+
                     </Style>
                 </TreeView.ItemContainerStyle>
                 <TreeView.ItemTemplate>
@@ -201,8 +194,8 @@
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
-            <Button Name="btnTestElement" AutomationProperties.Name="{x:Static Properties:Resources.btnTestElementAutomationPropertiesName}"
-                    HorizontalAlignment="Right" Width="24" Height="24" Margin="0,18,32,0"
+            <Button Name="btnTestElement" AutomationProperties.Name="Take element screenshot"
+                    HorizontalAlignment="Right" Width="Auto" Height="24" Margin="0,18,32,0"
                     VerticalAlignment="Top" Grid.Row="3" Visibility="Collapsed" KeyDown="FloatingButton_KeyDown"
                     BorderThickness="2" BorderBrush="{x:Null}"
                     AutomationProperties.AutomationId="{x:Static Properties:AutomationIDs.HierarchyControlTestElementButton}">
@@ -214,18 +207,18 @@
                         <Setter Property="Background" Value="{DynamicResource ResourceKey=LightGreyBrush}"/>
                         <Setter Property="Button.ToolTip">
                             <Setter.Value>
-                                <ToolTip>Test Element</ToolTip>
+                                <ToolTip>Take screenshot</ToolTip>
                             </Setter.Value>
                         </Setter>
                     </Style>
                 </Button.Style>
-                <fabric:FabricIconControl GlyphName="TestBeaker" Foreground="{DynamicResource ResourceKey=IconBrush}" GlyphSize="Custom" FontSize="14"/>
+                <fabric:FabricIconControl GlyphName="DesktopScreenshot" Foreground="{DynamicResource ResourceKey=IconBrush}" GlyphSize="Custom" FontSize="14"/>
             </Button>
             <Button x:Name="btnMenu" Grid.Column="1" Margin="0,18,4,0"
                    HorizontalAlignment="Right" VerticalContentAlignment="Center"
                     VerticalAlignment="Top" Grid.Row="3" Visibility="Collapsed"
                      Height="24" MinWidth="24" KeyDown="FloatingButton_KeyDown"
-                     BorderThickness="2" BorderBrush="{x:Null}"
+                     BorderThickness="2" BorderBrush="{x:Null}" 
                   AutomationProperties.Name="{x:Static Properties:Resources.btnMenuAutomationPropertiesName}">
                 <i:Interaction.Behaviors>
                     <behaviors:DropDownButtonBehavior/>

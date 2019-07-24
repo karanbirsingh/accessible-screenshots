@@ -81,7 +81,7 @@ namespace AccessibilityInsights
             else
             {
                 this.AllowFurtherAction = false;
-                MessageDialog.Show(Properties.Resources.StartElementDetailViewNoElementIsSelectedMessage);
+                //MessageDialog.Show(Properties.Resources.StartElementDetailViewNoElementIsSelectedMessage);
                 this.AllowFurtherAction = true;
             }
         }
@@ -121,13 +121,6 @@ namespace AccessibilityInsights
         /// </summary>
         private void StartTestNoSelection()
         {
-            ctrlCurMode.HideControl();
-            ctrlCurMode = ctrlTestMode;
-            ctrlCurMode.ShowControl();
-
-            this.CurrentPage = AppPage.Test;
-            this.CurrentView = TestView.NoSelection;
-            this.ctrlTestMode.SetForNoSelection();
         }
 
         /// <summary>
@@ -135,37 +128,7 @@ namespace AccessibilityInsights
         /// </summary>
         private void StartTestAutomatedChecksView()
         {
-            var ec = SelectAction.GetDefaultInstance().GetSelectedElementContextId();
-
-            if (ec != null)
-            {
-                DisableElementSelector();
-
-                ctrlCurMode.HideControl();
-                // make sure that we honor loaded data. but in this case, some of manual test should be disabled. 
-                ctrlTestMode.DataContextMode = GetDataContextModeForTest();
-                ctrlCurMode = ctrlTestMode;
-                ctrlCurMode.ShowControl();
-
-                // set mode to data capturing
-                this.CurrentPage = AppPage.Test;
-                this.CurrentView = TestView.CapturingData;
-
-#pragma warning disable CS4014
-                // NOTE: We aren't awaiting this async call, so if you
-                // touch it, consider if you need to add the await
-                this.ctrlTestMode.SetElement(ec.Value);
-#pragma warning restore CS4014
-
-                var tp = GetDataAction.GetProcessAndUIFrameworkOfElementContext(ec.Value);
-                PageTracker.TrackPage(this.CurrentPage, this.CurrentView.ToString(), tp.Item2);
-            }
-            else
-            {
-                this.AllowFurtherAction = false;
-                MessageDialog.Show(Properties.Resources.StartElementDetailViewNoElementIsSelectedMessage);
-                this.AllowFurtherAction = true;
-            }
+            
         }
 
         /// <summary>

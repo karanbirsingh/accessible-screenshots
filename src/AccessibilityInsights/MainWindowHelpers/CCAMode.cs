@@ -81,10 +81,8 @@ namespace AccessibilityInsights
         private void SetWindowForAutomaticMode()
         {
             this.ctrlCurMode.HideControl();
-            this.ctrlCurMode = this.ctrlCCAMode;
             this.ctrlCurMode.ShowControl();
 
-            this.ctrlCCAMode.ctrlContrast.Focus();
         }
 
         /// <summary>

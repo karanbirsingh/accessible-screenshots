@@ -78,7 +78,6 @@ namespace AccessibilityInsights
             this.ctrlCurMode = this.ctrlLiveMode;
             this.ctrlCurMode.ShowControl();
 
-            this.ctrlLiveMode.ctrlTabs.Focus();
         }
 
         /// <summary>

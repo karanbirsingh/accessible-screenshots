@@ -103,8 +103,6 @@ namespace AccessibilityInsights
                             this.GetTopLeftPoint() : new Point(this.Left, this.Top);
 
             dialog.Top = topLeft.Y + this.borderTitleBar.ActualHeight + 8;
-            dialog.Left = topLeft.X + this.ictMainMenu.ActualWidth;
-            dialog.Width = this.ActualWidth - this.ictMainMenu.ActualWidth;
             dialog.Owner = this;
 
             // Block until message bar disappears

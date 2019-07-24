@@ -90,7 +90,7 @@ namespace AccessibilityInsights.Modes
         public LiveModeControl()
         {
             InitializeComponent();
-            InitF6Panes(this.HierarchyGrid, this.ctrlTabs);
+            InitF6Panes(this.HierarchyGrid);
 
             this.ctrlHierarchy.HierarchyActions = this;
             this.ctrlHierarchy.SetbtnTestElementHandler(this.btnTest_Click);
@@ -266,7 +266,6 @@ namespace AccessibilityInsights.Modes
         /// <param name="e"></param>
         private void UpdateElementInfoUI(A11yElement e)
         {
-            this.ctrlTabs.SetElement(e, e != null && e.PlatformObject != null);
         }
 
         /// <summary>
@@ -287,8 +286,6 @@ namespace AccessibilityInsights.Modes
         {
             AdjustMainWindowSize();
             this.Visibility = Visibility.Visible;
-            this.runHkTest.Text = Configuration.HotKeyForSnap;
-            this.runHkActivate.Text = Configuration.HotKeyForActivatingMainWindow;
             ClearSelectedItem();
             Dispatcher.Invoke(() =>
             {
@@ -296,7 +293,6 @@ namespace AccessibilityInsights.Modes
             }
             , System.Windows.Threading.DispatcherPriority.Input);
 
-            this.ctrlTabs.CurrentMode = AccessibilityInsights.SharedUx.Enums.InspectTabMode.Live;
         }
 
         /// <summary>
@@ -310,7 +306,6 @@ namespace AccessibilityInsights.Modes
             this.SelectedInHierarchyElement = null;
             this.ElementContext = null;
             this.ctrlHierarchy.Clear();
-            this.ctrlTabs.Clear();
         }
 
         // <summary>
@@ -318,7 +313,6 @@ namespace AccessibilityInsights.Modes
         // </summary>
         public void UpdateConfigWithSize()
         {
-            CurrentLayout.LayoutLive.ColumnSnapWidth = this.columnSnap.Width.Value;
         }
 
         // <summary>
@@ -326,7 +320,6 @@ namespace AccessibilityInsights.Modes
         // </summary>
         public void AdjustMainWindowSize()
         {
-            this.columnSnap.Width = new GridLength(CurrentLayout.LayoutLive.ColumnSnapWidth);
             this.ctrlHierarchy.IsLiveMode = true;
 
             this.gsMid.Visibility = Visibility.Visible;
@@ -434,7 +427,6 @@ namespace AccessibilityInsights.Modes
             } 
             else
             {
-                this.tbInstructions.Focus();
             }
         }
 
@@ -467,7 +459,6 @@ namespace AccessibilityInsights.Modes
         /// </summary>
         private void gsMid_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
         {
-            if (e.HorizontalChange != 0) columnSnap.ResizeColumn(e.HorizontalChange);
         }
 
         /// <summary>
@@ -475,18 +466,6 @@ namespace AccessibilityInsights.Modes
         /// </summary>
         private void gsMid_KeyDown(object sender, KeyEventArgs e)
         {
-            const int increment = 5;
-
-            if (e.Key == Key.Left)
-            {
-                columnSnap.ResizeColumn(-increment);
-                e.Handled = true;
-            }
-            else if (e.Key == Key.Right)
-            {
-                columnSnap.ResizeColumn(increment);
-                e.Handled = true;
-            }
         }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)

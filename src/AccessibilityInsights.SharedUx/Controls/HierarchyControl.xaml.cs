@@ -154,6 +154,8 @@ namespace AccessibilityInsights.SharedUx.Controls
                 this.btnMenu.Visibility = Visibility.Collapsed;
                 this.btnTestElement.Visibility = Visibility.Collapsed;
             }
+
+            this.btnMenu.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -693,6 +695,7 @@ namespace AccessibilityInsights.SharedUx.Controls
                     btnMenu.Visibility = Visibility.Visible;
                     btnTestElement.Visibility = Visibility.Collapsed;
                 }
+                btnMenu.Visibility = Visibility.Collapsed;
                 tvi.BringIntoView();
                 Dispatcher.BeginInvoke(new Action(() =>
                 {

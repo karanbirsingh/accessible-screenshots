@@ -38,7 +38,7 @@ namespace AccessibilityInsights
     public partial class MainWindow : Window, IMainWindow, IControlTreeNavigation
 #pragma warning restore CA1001 // Types that own disposable fields should be disposable
     {
-        const string HelpDocLink = "https://go.microsoft.com/fwlink/?linkid=2077919";
+        const string HelpDocLink = "https://www.github.com/karanbirsingh/accessible-screenshots";
 
         IntPtr hWnd;
         private bool isClosed = false;
@@ -117,9 +117,6 @@ namespace AccessibilityInsights
         /// </summary>
         private void UpdateNavigationBarAutomationName()
         {
-            AutomationProperties.SetName(btnInspect, AutomationPropertiesNameInspect);
-            AutomationProperties.SetName(btnTest, AutomationPropertiesNameTest);
-            AutomationProperties.SetName(btnCCA, AutomationPropertiesNameCCA);
         }
 
 
@@ -250,7 +247,7 @@ namespace AccessibilityInsights
 
         void InitPanes()
         {
-            this.F6Panes = new List<FrameworkElement> { this.NavigationBar, this.ctrlNamedCommandbar, this.gridLayerModes };
+            this.F6Panes = new List<FrameworkElement> { this.ctrlNamedCommandbar, this.gridLayerModes };
             this.ShiftF6Panes = new List<FrameworkElement>(this.F6Panes);
             this.ShiftF6Panes.Reverse();
         }
@@ -298,11 +295,6 @@ namespace AccessibilityInsights
             {
                 RestoreConfigurationAsync();
             }
-            else
-            {
-                btnAccountConfig.Visibility = Visibility.Collapsed;
-                btnAccountConfig.SetValue(AutomationProperties.NameProperty, Properties.Resources.btnConfigAutomationPropertiesNameNoBugFiling);
-            }
 
             handleWindowStateChange();
 
@@ -312,6 +304,9 @@ namespace AccessibilityInsights
             StartStartMode();
 
             HandleFileAssociationOpenRequest();
+
+            SetHighlightBtnState(false);
+            btnPause_Click(null, null);
         }
 
         /// <summary>
@@ -366,9 +361,7 @@ namespace AccessibilityInsights
 
                     ConfigurationManager.GetDefaultInstance().Save();
 
-                    this.ctrlEventMode.ctrlEvents.StopRecordEvents(true);
                     this.isClosed = true;
-                    this.ctrlTestMode.Clear();
 
                     PageTracker.TrackPage(this.CurrentPage, null);
                 }
@@ -509,7 +502,7 @@ namespace AccessibilityInsights
         /// <param name="e"></param>
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo(HelpDocLink));
+            Process.Start(new ProcessStartInfo("https://www.github.com/karanbirsingh/accessible-screenshots"));
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -518,6 +511,10 @@ namespace AccessibilityInsights
             if (e.Key == Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && !(Keyboard.FocusedElement is ListViewItem lvi && !(lvi.DataContext is ScanListViewItemViewModel)))
             {
                 ctrlCurMode.CopyToClipboard();
+            }
+            else if (e.Key == Key.Escape && vmLiveModePauseResume.State == ButtonState.On)
+            {
+                btnPause_Click(null, null);
             }
             else
             {
@@ -739,8 +736,7 @@ namespace AccessibilityInsights
             vmReporterLogo.FabricIconLogoName = isConfigured ? fabricIconName : null;
             string tooltipResource = isConfigured ? Properties.Resources.UpdateMainWindowLoginFieldsSignedInAs : Properties.Resources.HandleLogoutRequestSignIn;
             string tooltipText = string.Format(CultureInfo.InvariantCulture, tooltipResource, IssueReporter.DisplayName);
-            AutomationProperties.SetName(btnAccountConfig, tooltipText);
-            btnAccountConfig.ToolTip = tooltipText;
+
         }
 
         #endregion
@@ -941,7 +937,7 @@ namespace AccessibilityInsights
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnCrumbOne_Click(object sender, RoutedEventArgs e)
+        public void btnCrumbOne_Click(object sender, RoutedEventArgs e)
         {
             /// make sure that we are not capturing data. 
             if (IsCapturingData() == false)
