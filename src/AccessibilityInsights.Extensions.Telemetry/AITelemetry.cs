@@ -19,7 +19,7 @@ namespace AccessibilityInsights.Extensions.Telemetry
         /// <summary>
         /// Instrumentation key from Azure portal
         /// </summary>
-        const string InstrumentationKey = "0ad67074-7af0-494c-adee-be70a786448a";
+        const string InstrumentationKey = "";
 
         private TelemetryClient TClient;
 
